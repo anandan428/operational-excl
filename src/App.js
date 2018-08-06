@@ -14,11 +14,7 @@ const App = () => (
     </header>
     <main className="container">
       <Menu />
-<<<<<<< HEAD
       {/* <Home /> */}
-=======
-      <Home />
->>>>>>> cfbc3ee986f4870d03ab4d2da9a1cc60ce5cadb3
     </main>
   </div>
 )
