@@ -25,6 +25,7 @@ import Header from './components/header'
 const App = () => (
   <div>
     <Header />
+    <Home />
     {/* <main>
       <Route exact path="/" component = { Home } />
       <Route exact path="/about-us" component = { About } />
