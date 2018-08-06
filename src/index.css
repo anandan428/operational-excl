@@ -3,5 +3,5 @@ body{
   padding: 0;
   border: 0;
   font-family: 'Open Sans', sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
 }
