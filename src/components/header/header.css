@@ -3,13 +3,13 @@
     background-color: #fafafb !important;
     color: black;
     padding: .5rem 1rem;
-    position: absolute;
+    position: fixed;
     top: 0; 
     width: 83.5rem;
     display: flex;
     z-index:10;
     display: flex;
-    box-shadow: 0 8px 6px -6px #808B96;
+    box-shadow: 0 1px 0 rgba(12,13,14,0.1), 0 1px 6px rgba(59,64,69,0.1);
     border-top: 2px solid orangered;
   }
 .header-brand{

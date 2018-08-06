@@ -4,7 +4,8 @@ import logo from './logo.svg';
 import './App.css';
 import Home from './components/home';
 import About from './components/about';
-import Header from './components/header'
+import Header from './components/header';
+import Menu from './components/menu';
 
 // class App extends Component {
 //   render() {
@@ -24,8 +25,13 @@ import Header from './components/header'
 
 const App = () => (
   <div>
-    <Header />
-    <Home />
+    <header>
+      <Header />    
+    </header>
+    <main className="container">
+      <Menu />
+      <Home />
+    </main>
     {/* <main>
       <Route exact path="/" component = { Home } />
       <Route exact path="/about-us" component = { About } />
