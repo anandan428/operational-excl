@@ -8,6 +8,7 @@ import {
     increment,
     incrementAsync
 } from '../../modules/counter';
+import DoughNut from '../../containers/pieChart';
 var ECharts = require('echarts');
 
 
@@ -17,37 +18,25 @@ class Home extends Component {
         super(props)
     }
 
-    componentDidMount(){
-        this._intializeChart();
-    }
-
-    _intializeChart(){
-        var chartOptions = {
-            xAxis: [{
-              type: 'value'
-            }],
-            yAxis: [{
-              type: 'value'
-            }],
-            series: [{
-              type: "line",
-              data: [[0, 4], [1, 3], [2, 2], [3, 4], [4, 1], [5, 2]],
-            }],
-          };
-        var chart = ECharts.init(document.getElementById("charts"));
-        chart.setOption(chartOptions);
-    }
-
     render() {
         return (
             <div style={{marginTop: '52px', marginLeft: '220px', padding: '2px'}}>
-               <div id="charts" style={{width: '100px', height: '100px'}}></div> 
+                <div >
+                {/* test */}
+                    <DoughNut name="charts" />
+                </div>
             </div>
         )
     }
 }
 
 export default Home;
+
+
+
+
+
+
 
 // const Home = props => (
 //     <div>
