@@ -5,8 +5,7 @@
     padding: .5rem 1rem;
     position: fixed;
     top: 0; 
-    width: 171vh;
-    display: flex;
+    width: 100%;
     z-index:10;
     display: flex;
     box-shadow: 0 1px 0 rgba(12,13,14,0.1), 0 1px 6px rgba(59,64,69,0.1);

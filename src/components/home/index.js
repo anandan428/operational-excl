@@ -2,210 +2,52 @@ import React, { Component } from 'react';
 import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import Chart from 'chart.js';
-var Highcharts = require('highcharts');
-require('highcharts/modules/exporting')(Highcharts);
+import {
+    decrement,
+    decrementAsync,
+    increment,
+    incrementAsync
+} from '../../modules/counter';
+var ECharts = require('echarts');
+
 
 class Home extends Component {
+
+    constructor(props){
+        super(props)
+    }
+
+    componentDidMount(){
+        this._intializeChart();
+    }
+
+    _intializeChart(){
+        var chartOptions = {
+            xAxis: [{
+              type: 'value'
+            }],
+            yAxis: [{
+              type: 'value'
+            }],
+            series: [{
+              type: "line",
+              data: [[0, 4], [1, 3], [2, 2], [3, 4], [4, 1], [5, 2]],
+            }],
+          };
+        var chart = ECharts.init(document.getElementById("charts"));
+        chart.setOption(chartOptions);
+    }
+
     render() {
         return (
-            <div style={{ marginTop: '52px' }}>
-                <div style={{ float: 'left', width: '47%' }}>
-                    <Charts></Charts>
-                </div>
-                <div style={{ float: 'left', width: '47%' }}>
-                    <StudyGroup></StudyGroup>
-                </div>
-                <div>
-                    <DataTable></DataTable>
-                </div>
+            <div style={{marginTop: '52px', marginLeft: '220px', padding: '2px'}}>
+               <div id="charts" style={{width: '100px', height: '100px'}}></div> 
             </div>
         )
     }
 }
 
 export default Home;
-
-class Charts extends Component {
-    componentDidMount() {
-        this._intiainitializeChart();
-    }
-    _intiainitializeChart() {
-        Highcharts.getOptions({
-            global: {
-                useUTC: false
-            }
-        });
-        Highcharts.chart('graph', {
-            chart: {
-                type: 'pie',
-                animation: Highcharts.svg,
-                marginRight: 10
-            },
-            title: {
-                text: 'Daily Cuts'
-            },
-            xAxis: {
-                title: {
-                    text: 'Days'
-                },
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: 'No of Cuts'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 2,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.createdDate}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.y}</span>Cuts<br/>'
-            },
-            legend: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            "series": [
-                {
-                    "colorByPoint": true,
-                    "data": [10, 20, 30, 30, 21]
-                }
-            ]
-        });
-    }
-    render() {
-        return (
-            <div className="halfDiv" style={{ padding: '15px', maxHeight: '50%', overflow: 'hidden' }}>
-                {/* <p className="card-header" style={{color: 'grey'}}>Cutting Machine Events</p> */}
-                <div style={{ marginTop: '10px', backgroundColor: '#ededee' }} id="graph">
-                </div>
-            </div>
-        )
-    }
-}
-
-class StudyGroup extends Component {
-    componentDidMount() {
-        this._intiainitializeChart();
-    }
-    _intiainitializeChart() {
-        Highcharts.getOptions({
-            global: {
-                useUTC: false
-            }
-        });
-        Highcharts.chart('graph1', {
-            chart: {
-                type: 'pie',
-                animation: Highcharts.svg,
-                marginRight: 10
-            },
-            title: {
-                text: 'Daily Cuts'
-            },
-            xAxis: {
-                title: {
-                    text: 'Days'
-                },
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: 'No of Cuts'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 2,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.createdDate}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.y}</span>Cuts<br/>'
-            },
-            legend: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            "series": [
-                {
-                    "colorByPoint": true,
-                    "data": [10, 20, 30, 30, 21]
-                }
-            ]
-        });
-    }
-    render() {
-        return (
-            <div className="halfDiv" style={{ padding: '15px', maxHeight: '50%', overflow: 'hidden' }}>
-                {/* <p className="card-header" style={{color: 'grey'}}>Cutting Machine Events</p> */}
-                <div style={{ marginTop: '10px', backgroundColor: '#ededee' }} id="graph1">
-                </div>
-            </div>
-        )
-    }
-}
-
-class DataTable extends Component {
-    render() {
-        return (
-            <div>
-                <table className="table" >
-                    <thead>
-                        <tr>
-                            <th>
-                            </th>
-                            <th>
-                                Machine
-                            </th>
-                            <th>
-                                No of Cuts
-                            </th>
-                            <th>
-                                UserID
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td align="center">
-                                <i className="fa fa-arrow-circle-up fa-2x" style={{ fontSize: '20px', color: 'green' }}></i>
-                            </td>
-                            <td>
-                                Machine 1
-                    {/* <a href="http://localhost:3001/">Machine 1</a> */}
-                            </td>
-                            <td>
-                                15
-                            </td>
-                            <td>
-                                A242231
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        )
-    }
-}
-
-
-
-// import {
-//     decrement,
-//     decrementAsync,
-//     increment,
-//     incrementAsync
-// } from '../../modules/counter'
-
 
 // const Home = props => (
 //     <div>
