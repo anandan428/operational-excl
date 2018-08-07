@@ -6,6 +6,7 @@ import Home from './components/home';
 import About from './components/about';
 import Header from './components/header';
 import Menu from './components/menu';
+import Details from './components/details';
 
 const App = () => (
   <div>
@@ -14,7 +15,8 @@ const App = () => (
     </header>
     <main className="container">
       <Menu />
-      <Home />
+      <Route exact path="/" component = { Home } />
+      <Route exact path="/details"  component = { Details }/>
     </main>
   </div>
 )

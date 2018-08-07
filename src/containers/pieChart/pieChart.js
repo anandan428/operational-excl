@@ -58,10 +58,12 @@ class DoughNut extends Component {
         }
         var chart = ECharts.init(document.getElementById(this.props.name));
         chart.setOption(_mapOptions);
+        chart.on('click', (data) => {
+            this.props.onClick({data: data.data, area: this.props.name})
+        });
     }
 
-    render() {
-        
+    render() {        
         return (
             <div id={this.props.name} className={this.props.toBeClassName}>
 

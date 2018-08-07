@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-import { push } from 'connected-react-router';
+import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import './home.css';
-import {
-    decrement,
-    decrementAsync,
-    increment,
-    incrementAsync
-} from '../../modules/counter';
 import DoughNut from '../../containers/pieChart/pieChart';
 import Table from '../../containers/table/table';
 var ECharts = require('echarts');
@@ -20,11 +14,20 @@ class Home extends Component {
         super(props)
     }
 
+    doughClick = (data) => {
+        this.props.changePage({
+            pathname: 'details',
+            state: {
+                data: data
+            }
+        });
+    }
+
     render() {
         return (
             <div style={{ marginTop: '52px', marginLeft: '220px', padding: '10px' }}>
-                <DashCard title="Competence"/>
-                <DashCard title="POC" />
+                <DashCard title="Competence" onClick={(data) => this.doughClick(data)}/>
+                <DashCard title="POC" onClick={(data) => this.doughClick(data)}/>
             </div>
         )
     }
@@ -37,42 +40,49 @@ class DashCard extends Component {
         let data = [
             {
                 name: 'Total',
-                count: 100
+                value: 100
             },
             {
                 name: 'IOT',
-                count: 13
+                value: 13
             },
             {
                 name: 'Machine learning',
-                count: 13
+                value: 13
             },
             {
                 name: 'Azure',
-                count: 13
+                value: 13
             },
             {
                 name: 'RPA',
-                count: 13
+                value: 13
             },
             {
                 name: 'UI/ UX',
-                count: 13
+                value: 13
             }
         ]
         return (
             <div style={{marginBottom: '2px'}}>
                 <div className={'chartContainer'}>
                     <p className={'pHeader'}>{this.props.title}</p>
-                    <DoughNut name={this.props.title} toBeClassName={'relative floatLeft mediumSize'} />
-                    <Table data={data}/>
+                    <DoughNut name={this.props.title} toBeClassName={'relative floatLeft mediumSize'} onClick={this.props.onClick}/>
+                    <Table name = {this.props.title} data = {data} onClick = {this.props.onClick} />
                 </div>
             </div>
         )
     }
 }
 
-export default Home;
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changePage: (config) => push(config)
+}, dispatch);
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(Home);
 
 
 
