@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
+import './pieChart.css'
 var ECharts = require('echarts');
-
-
-
 
 class DoughNut extends Component {
     constructor(props) {
@@ -22,7 +20,7 @@ class DoughNut extends Component {
             legend: {
                 orient: 'vertical',
                 x: 'left',
-                data: ['IOT', 'Machine Learning', 'Azure', 'RPA', 'UI / UX']
+                data: ['IOT', 'Machine Learning', 'Azure', 'RPA', 'UI/ UX']
             },
             series: [
                 {
@@ -63,8 +61,9 @@ class DoughNut extends Component {
     }
 
     render() {
+        
         return (
-            <div id={this.props.name} style={{width: '450px', height: '350px'}}>
+            <div id={this.props.name} className={this.props.toBeClassName}>
 
             </div>
         )

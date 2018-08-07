@@ -1,0 +1,18 @@
+
+table{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px
+}
+
+table td, table th{
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+}
+
+.pHeader{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    margin: 5px;
+    margin-left: 10px;
+}

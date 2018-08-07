@@ -1,0 +1,10 @@
+.relative{
+    position: relative;
+}
+.floatLeft{
+    float: left;
+}
+.mediumSize{
+    width: 450px;
+    height: 300px;
+}
