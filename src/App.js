@@ -1,9 +1,7 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
-import logo from './logo.svg';
+import { Route } from 'react-router-dom';
 import './App.css';
 import Home from './components/home';
-import About from './components/about';
 import Header from './components/header';
 import Menu from './components/menu';
 import Details from './components/details';

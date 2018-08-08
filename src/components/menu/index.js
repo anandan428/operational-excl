@@ -7,9 +7,6 @@ import './menu.css';
 
 class Menu extends React.Component {
 
-    constructor(props){
-        super(props);
-    }
 
     onNavLink = (event, id) => {
         this.props.changeID(id);

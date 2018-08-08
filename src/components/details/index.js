@@ -7,13 +7,14 @@ import { push } from 'react-router-redux';
 class Details extends Component {
 
     state = {
-        componentName: ''
+        componentName: 'Nothing selected'
     }
     
-    componentDidUpdate(prepProps){
-        debugger;
-        if(prepProps.state.area !== this.props.state.area){
-            this.state.componentName = this.props.state.area;
+    componentDidMount(){
+        if(this.props.state){
+            this.setState({componentName: this.props.state.data.area})
+        } else {
+            this.props.changePage();
         }
     }
 
@@ -34,7 +35,7 @@ const mapStateToProps = ({ router }) => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    changePage: () => push('/about-us')
+    changePage: () => push('/')
 }, dispatch);
 
 export default connect(

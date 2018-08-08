@@ -3,9 +3,6 @@ import './pieChart.css'
 var ECharts = require('echarts');
 
 class DoughNut extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this._intializeMap();

@@ -5,14 +5,9 @@ import { connect } from 'react-redux';
 import './home.css';
 import DoughNut from '../../containers/pieChart/pieChart';
 import Table from '../../containers/table/table';
-var ECharts = require('echarts');
 
 
 class Home extends Component {
-
-    constructor(props) {
-        super(props)
-    }
 
     doughClick = (data) => {
         this.props.changePage({
