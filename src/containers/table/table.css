@@ -11,8 +11,35 @@ table td, table th{
     padding: 8px;
 }
 
+table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: ghostwhite;
+}
+
 .pHeader{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     margin: 5px;
     margin-left: 10px;
+}
+
+.homeClass{
+    padding: 10px;
+    background: whitesmoke;
+    position: relative;
+    float: left;
+    height: 300px;
+    width: 57%;
+}
+
+.defaultClass {
+    padding: 10px;
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.withBorder{
+    border: 1px solid grey;
 }
