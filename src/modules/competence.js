@@ -7,13 +7,13 @@ const intialState = {
 }
 
 export default (state = intialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case GET_DASHBOARD:
-        debugger;
-        return {
-            ...state,
-            competences: Object.assign([], action.payload)
-        };
+            debugger;
+            return {
+                ...state,
+                competences: Object.assign([], action.payload)
+            };
         default: return state;
     }
 }
@@ -35,7 +35,7 @@ export const loadAllCompetence = (data) => {
 //     });
 
 export const getAllCompetences = () => {
-    return dispatch => setTimeout(() => {
-        dispatch(loadAllCompetence(['hello', 'super']))
-    }, 1000);
+    return dispatch => CompetenceApi.getAllCompetence()
+        .then(data => dispatch(loadAllCompetence(data)))
+        .catch(error => { throw (error) });
 }

@@ -6,6 +6,9 @@ import store, { history } from './store';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import { getAllCompetences } from './modules/competence';
+
+store.dispatch(getAllCompetences());
 
 ReactDOM.render(
     <Provider store = {store}>
