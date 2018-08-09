@@ -1,4 +1,6 @@
 import Resourse from "../api/mockDetails.api";
+import competenceService from "../services/competence.service";
+import { addResourcePerCompetence } from './competence';
 
 export const GET_ALLDETAILS = 'details/GET_ALLDETAILS';
 
@@ -9,6 +11,7 @@ const intialState = {
 export default (state = intialState, action) => {
     switch (action.type) {
         case GET_ALLDETAILS:
+            console.log('details');
             return {
                 ...state,
                 details: Object.assign([], action.details)
@@ -25,7 +28,15 @@ export const loadAllDetails = (data) => {
 }
 
 export const getAllDetails = () => {
-    return dispatch => Resourse.getAllResourses()
-        .then(data => dispatch(loadAllDetails(data)))
-        .catch(error => { throw error });
+    return (dispatch, getState) => {
+        Resourse.getAllResourses()
+            .then(data => {
+                const { competence } = getState();
+                if(competence.competences.length > 0){
+                    competenceService.prepareDataForGraph(competence.competences, data).then(data => dispatch(addResourcePerCompetence(data)));
+                }
+                dispatch(loadAllDetails(data));
+            })
+            .catch(error => { throw error })
+    };
 }

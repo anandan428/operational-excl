@@ -350,7 +350,6 @@ const resourses = [
         "ResourseID": "A242238",
         "ResourseName": "Nandan A"
     },
-    ,
     {
         "ActivityManagerID": "TIN2399",
         "ActivityManagerName": "John",
@@ -363,7 +362,6 @@ const resourses = [
         "ResourseID": "A242239",
         "ResourseName": "Nandan A"
     },
-    ,
     {
         "ActivityManagerID": "TIN2399",
         "ActivityManagerName": "John",

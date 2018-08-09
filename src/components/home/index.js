@@ -20,19 +20,14 @@ class Home extends Component {
         graphData: []
     }
 
-    static getDerivedStateFromProps(props, state){
-        if (props.allCompetences.length > 0 && this.props.allDetails.length > 0) {
-            competenceService.prepareDataForGraph(props.allCompetences, props.allDetails).then(data => {
-                props.addResourcePerCompetence(data);
-            }).catch(error => {
-                throw (error);
-            })
-        }
-        if (props.resourcePerCompetence.length > 0) {
-            // console.log(genricMethod.objectdeepCompare(prevProps.resourcePerCompetence, this.props.resourcePerCompetence))
-            this.setState({ graphData: props.resourcePerCompetence });
+    componentDidUpdate(nextProps) {
+        debugger;
+        if (this.props.resourcePerCompetence.length > 0) {
+            if (!genricMethod.objectdeepCompare(nextProps.resourcePerCompetence, this.props.resourcePerCompetence))
+                this.setState({ graphData: Object.assign([], this.props.resourcePerCompetence) });
         }
     }
+
 
     doughClick = (data) => {
         this.props.changePage({
@@ -44,16 +39,15 @@ class Home extends Component {
     }
 
     renderDashboard = () => {
-        if (this.state.graphData.length > 0) {
+        if (this.props.resourcePerCompetence.length > 0) {
             return (
                 this.state.graphData.map(data =>
-                    <DashCard title="Competence" onClick={(data) => this.doughClick(data)} />
+                    <DashCard title={data.name} onClick={(data) => this.doughClick(data)} />
                 )
             )
         } else {
             return null;
         }
-        return null;
     }
 
     render() {
