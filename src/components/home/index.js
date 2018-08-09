@@ -5,9 +5,17 @@ import { connect } from 'react-redux';
 import './home.css';
 import DoughNut from '../../containers/pieChart/pieChart';
 import Table from '../../containers/table/table';
+import {
+    getAllCompetences
+} from '../../modules/competence'
+import CompetenceApi from '../../api/mockHome.api';
 
 
 class Home extends Component {
+
+    componentDidMount(){
+        CompetenceApi
+    }
 
     doughClick = (data) => {
         this.props.changePage({
@@ -71,6 +79,7 @@ class DashCard extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
+    getAllCompetences: () => getAllCompetences(),
     changePage: (config) => push(config)
 }, dispatch);
 

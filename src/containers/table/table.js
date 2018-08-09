@@ -3,7 +3,6 @@ import './table.css';
 
 class Table extends Component {
     withoutHeader = () => {
-        debugger;
         let data = this.props.data;
         console.log('we are here');
         if (this.props.headers) {

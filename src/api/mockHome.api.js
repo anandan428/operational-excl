@@ -1,4 +1,4 @@
-import dealy from './delay';
+import delay from './delay';
 
 const competences = [
     {
@@ -58,8 +58,10 @@ const competences = [
 
 class CompetenceApi {
     static getAllCompetence(){
+        debugger;
         return new Promise((resolve, reject) => {
             setTimeout(() => {
+                debugger;
                 resolve(Object.assign([], competences))
             }, delay);
         })
