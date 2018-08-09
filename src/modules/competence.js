@@ -1,13 +1,12 @@
 import CompetenceApi from "../api/mockHome.api";
 import competenceService from "../services/competence.service";
+import { addResourcePerCompetence } from "./resCompetence"
 export const GET_DASHBOARD = 'dashboard/GET_DASHBOARD';
-export const UPDATE_RESOURCECOMPETENCE = 'dashboard/UPDATE_RESOURCECOMPETENCE';
 
 
 
 const intialState = {
-    competences: [],
-    resourcePerCompetence: []
+    competences: []
 }
 
 export default (state = intialState, action) => {
@@ -17,11 +16,6 @@ export default (state = intialState, action) => {
                 ...state,
                 competences: Object.assign([], action.competence)
             };
-        case UPDATE_RESOURCECOMPETENCE:
-            return {
-                ...state,
-                resourcePerCompetence: Object.assign([], action.resourcePerCompetence)
-            }
         default: return state;
     }
 }
@@ -47,9 +41,3 @@ export const getAllCompetences = () => {
     }
 }
 
-export const addResourcePerCompetence = (data) => {
-    return {
-        type: UPDATE_RESOURCECOMPETENCE,
-        resourcePerCompetence: data
-    };
-}

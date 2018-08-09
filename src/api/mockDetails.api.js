@@ -157,7 +157,6 @@ const resourses = [
         "ResourseID": "A242238",
         "ResourseName": "Nandan A"
     },
-    ,
     {
         "ActivityManagerID": "TIN2399",
         "ActivityManagerName": "John",
@@ -252,6 +251,18 @@ const resourses = [
         "ResourseManagerName": "John",
         "Role": "SPOC",
         "ResourseID": "A242234",
+        "ResourseName": "Nandan A"
+    },
+    {
+        "ActivityManagerID": "TIN2399",
+        "ActivityManagerName": "John",
+        "CompetenceLevel": 3,
+        "LearningGroup": 2, 
+        "TechID": 2,
+        "ResourseManagerID": "TIN2399",
+        "ResourseManagerName": "John",
+        "Role": "SPOC",
+        "ResourseID": "A242250",
         "ResourseName": "Nandan A"
     },
     {

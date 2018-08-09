@@ -4,7 +4,6 @@ import './table.css';
 class Table extends Component {
     withoutHeader = () => {
         let data = this.props.data;
-        console.log('we are here');
         if (this.props.headers) {
             let headers = this.props.headers;
             return (
@@ -42,7 +41,10 @@ class Table extends Component {
                         {
                             data.map(row =>
                                 <tr>
-                                    {keys.map(key => <td>{row[key]}</td>)}
+                                    {keys.map(key => {
+                                        if(key !== 'id')
+                                            return(<td>{row[key]}</td>
+                                    )})}
                                 </tr>)
                         }
                     </tbody>

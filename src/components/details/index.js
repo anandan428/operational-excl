@@ -3,36 +3,44 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Table from '../../containers/table/table';
-
+import { getRequestedData } from '../../modules/resCompetence'
 
 class Details extends Component {
 
-    state = {
-        componentName: 'Nothing selected',
-        area: 'Nope'
-    }
-
     componentDidMount() {
-        if (this.props.state) {
-            this.setState({ componentName: this.props.state.data.area });
+        if(this.props.state){
+            this.props.getRequestedData(this.props.state.data.groupId, this.props.state.data.data.id);
         } else {
             this.props.changePage();
         }
+        
+    }
+
+    renderSelectedArea = (header) => {
+        if(this.props.requestedData.length > 0){
+            return (
+                <div style={{ marginTop: '52px', marginLeft: '220px', padding: '10px' }}>
+                    <p style={{fontWeight: '600'}}>{this.props.state.data.groupName + '-' + this.props.state.data.data.name}</p>
+                    <Table data={this.props.requestedData} headers={header} className = {'defaultClass'}/>
+                </div>
+            )
+        }
+        return null;
     }
 
     render() {
         let header = [
             {
                 title: 'VCN ID',
-                field: 'ResourceID'
+                field: 'ResourseID'
             },
             {
                 title: 'Resource Name',
-                field: 'ResourceName'
+                field: 'ResourseName'
             },
             {
                 title: 'Resource Role',
-                field: 'ResourceRole'
+                field: 'Role'
             },
             {
                 title: 'Competence Level',
@@ -40,81 +48,24 @@ class Details extends Component {
             },
             {
                 title: 'Activity Manager',
-                field: 'ActivityManager'
-            }
-        ];
-        let data = [
-            {
-                'ActivityManager': 'Jhon',
-                'CompetenceLevel': 'Level 2',
-                'LearningGroupId': 'IOT',
-                'ResourceRole': 'TM',
-                'ResourceName': 'Nandan',
-                'ResourceID': 'A242230'
-            },
-            {
-                'ActivityManager': 'Jhon',
-                'CompetenceLevel': 'Level 3',
-                'LearningGroupId': 'IOT',
-                'ResourceRole': 'SPOC',
-                'ResourceName': 'Kiran',
-                'ResourceID': 'A242231'
-            },
-            {
-                'ActivityManager': 'Jhon',
-                'CompetenceLevel': 'Level 3',
-                'LearningGroupId': 'IOT',
-                'ResourceRole': 'TM',
-                'ResourceName': 'Bala',
-                'ResourceID': 'A260617'
-            },
-            {
-                'ActivityManager': 'Jhon',
-                'CompetenceLevel': 'Level 1',
-                'LearningGroupId': 'IOT',
-                'ResourceRole': 'TM',
-                'ResourceName': 'Nain',
-                'ResourceID': 'A234567'
-            },
-            {
-                'ActivityManager': 'Jhon',
-                'CompetenceLevel': 'Level 2',
-                'LearningGroupId': 'IOT',
-                'ResourceRole': 'TM',
-                'ResourceName': 'Sachin',
-                'ResourceID': 'A245037'
-            },
-            {
-                'ActivityManager': 'Jhon',
-                'CompetenceLevel': 'Level 2',
-                'LearningGroupId': 'IOT',
-                'ResourceRole': 'TM',
-                'ResourceName': 'Barun',
-                'ResourceID': 'A222983'
-            },
-            {
-                'ActivityManager': 'Jhon',
-                'CompetenceLevel': 'Level 3',
-                'LearningGroupId': 'IOT',
-                'ResourceRole': 'TM',
-                'ResourceName': 'Shakul',
-                'ResourceID': 'A242239'
+                field: 'ActivityManagerName'
             }
         ];
         return (
-            <div style={{ marginTop: '52px', marginLeft: '220px', padding: '10px' }}>
-                <p style={{fontWeight: '600'}}>{this.state.componentName}</p>
-                <Table data={data} headers={header} className = {'defaultClass'}/>
+            <div>
+                {this.renderSelectedArea(header)}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ router }) => ({
-    state: router.location.state
+const mapStateToProps = ({ router, resourcecompetence }) => ({
+    state: router.location.state,
+    requestedData: resourcecompetence.requestedData
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
+    getRequestedData: (learningGroupID, techID) => getRequestedData(learningGroupID, techID),
     changePage: () => push('/')
 }, dispatch);
 

@@ -11,7 +11,6 @@ class Menu extends React.Component {
     onNavLink = (event, id) => {
         this.props.changeID(id);
         event.preventDefault();
-        console.log(event);
     }
 
     render() {

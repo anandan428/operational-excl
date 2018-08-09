@@ -17,11 +17,11 @@ class DoughNut extends Component {
             legend: {
                 orient: 'vertical',
                 x: 'left',
-                data: ['IOT', 'Machine Learning', 'Azure', 'RPA', 'UI/ UX']
+                data: this.props.legends
             },
             series: [
                 {
-                    name: 'Competence',
+                    name: this.props.name,
                     type: 'pie',
                     radius: ['50%', '70%'],
                     avoidLabelOverlap: false,
@@ -43,20 +43,14 @@ class DoughNut extends Component {
                             show: false
                         }
                     },
-                    data: [
-                        { value: 335, name: 'IOT' },
-                        { value: 310, name: 'Machine Learning' },
-                        { value: 234, name: 'Azure' },
-                        { value: 135, name: 'RPA' },
-                        { value: 1548, name: 'UI/ UX' }
-                    ]
+                    data: this.props.mapdata
                 }
             ]
         }
         var chart = ECharts.init(document.getElementById(this.props.name));
         chart.setOption(_mapOptions);
         chart.on('click', (data) => {
-            this.props.onClick({data: data.data, area: this.props.name})
+            this.props.onClick({data: data.data, groupId: this.props.groupId, groupName: this.props.name})
         });
     }
 

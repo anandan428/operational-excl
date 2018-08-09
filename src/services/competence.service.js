@@ -10,12 +10,13 @@ class competenceService {
             for (const data of competence) {
                 record.id = data.id;
                 record.name = data.name;
+                record.competence = [];
                 for (const row of data.competence) {
-                    record.competence.push({
+                    record.competence.push(Object.assign({}, {
                         id: row.id,
                         name: row.name,
-                        employees: this.getEmpDetails(data.id, row.id, details)
-                    });
+                        employees: this.getEmpDetails(data.id, row.id, Object.assign([], details))
+                    }));
                 }
                 finalCompetence.push(Object.assign({}, record));
             }
@@ -24,7 +25,8 @@ class competenceService {
     }
 
     static getEmpDetails(learningGroupID, techId, details) {
-        return details.filter(data => data.LearningGroup === learningGroupID && data.TechID === techId);
+        if(learningGroupID && techId && details.length > 0)
+            return details.filter(data => data.LearningGroup === learningGroupID && data.TechID === techId);
     }
 }
 

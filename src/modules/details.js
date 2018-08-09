@@ -1,6 +1,6 @@
 import Resourse from "../api/mockDetails.api";
 import competenceService from "../services/competence.service";
-import { addResourcePerCompetence } from './competence';
+import { addResourcePerCompetence } from "./resCompetence"
 
 export const GET_ALLDETAILS = 'details/GET_ALLDETAILS';
 
@@ -11,7 +11,6 @@ const intialState = {
 export default (state = intialState, action) => {
     switch (action.type) {
         case GET_ALLDETAILS:
-            console.log('details');
             return {
                 ...state,
                 details: Object.assign([], action.details)

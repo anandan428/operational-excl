@@ -7,7 +7,6 @@ import { push } from 'react-router-redux';
 class About extends Component {
 
     test = () => {
-        console.log(this.props);
     }
 
     render() {
