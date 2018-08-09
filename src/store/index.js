@@ -5,6 +5,7 @@ import {
 import thunk from 'redux-thunk';
 import createHistory from 'history/createHashHistory';
 import rootReducer from '../modules';
+import reduxImmutableStatevariant from 'redux-immutable-state-invariant';
 
 export const history = createHistory();
 
@@ -17,11 +18,13 @@ const middleWare = [
 
 if (process.env.NODE_ENV === 'development'){
     const devToolsExtenion = window.__REDUX_DEVTOOLS_EXTENSION__;
-
+    middleWare.push(reduxImmutableStatevariant())
     if(typeof devToolsExtenion === 'function') {
         enhancers.push(devToolsExtenion())
     }
 }
+
+
 
 const composedEnhancers = compose(
     applyMiddleware(...middleWare),
