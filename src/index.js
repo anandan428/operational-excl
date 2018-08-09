@@ -7,12 +7,13 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { getAllCompetences } from './modules/competence';
+import { getAllDetails } from './modules/details';
 
 store.dispatch(getAllCompetences());
-
+store.dispatch(getAllDetails());
 ReactDOM.render(
-    <Provider store = {store}>
-        <ConnectedRouter history = {history}>
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
             <div>
                 <App />
             </div>

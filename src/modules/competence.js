@@ -9,10 +9,9 @@ const intialState = {
 export default (state = intialState, action) => {
     switch (action.type) {
         case GET_DASHBOARD:
-            debugger;
             return {
                 ...state,
-                competences: Object.assign([], action.payload)
+                competences: Object.assign([], action.competence)
             };
         default: return state;
     }
@@ -21,7 +20,7 @@ export default (state = intialState, action) => {
 export const loadAllCompetence = (data) => {
     return {
         type: GET_DASHBOARD,
-        payload: data
+        competence: data
     }
 }
 
