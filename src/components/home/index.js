@@ -6,15 +6,32 @@ import './home.css';
 import DoughNut from '../../containers/pieChart/pieChart';
 import Table from '../../containers/table/table';
 import {
-    getAllCompetences
+    getAllCompetences,
+    addResourcePerCompetence
 } from '../../modules/competence'
-import CompetenceApi from '../../api/mockHome.api';
+import competenceService from '../../services/competence.service';
+import genricMethod from '../../services/genericMethod.service';
+// import CompetenceApi from '../../api/mockHome.api';
 
 
 class Home extends Component {
 
-    componentDidMount(){
-        CompetenceApi
+    state = {
+        graphData: []
+    }
+
+    static getDerivedStateFromProps(props, state){
+        if (props.allCompetences.length > 0 && this.props.allDetails.length > 0) {
+            competenceService.prepareDataForGraph(props.allCompetences, props.allDetails).then(data => {
+                props.addResourcePerCompetence(data);
+            }).catch(error => {
+                throw (error);
+            })
+        }
+        if (props.resourcePerCompetence.length > 0) {
+            // console.log(genricMethod.objectdeepCompare(prevProps.resourcePerCompetence, this.props.resourcePerCompetence))
+            this.setState({ graphData: props.resourcePerCompetence });
+        }
     }
 
     doughClick = (data) => {
@@ -26,18 +43,29 @@ class Home extends Component {
         });
     }
 
+    renderDashboard = () => {
+        if (this.state.graphData.length > 0) {
+            return (
+                this.state.graphData.map(data =>
+                    <DashCard title="Competence" onClick={(data) => this.doughClick(data)} />
+                )
+            )
+        } else {
+            return null;
+        }
+        return null;
+    }
+
     render() {
         return (
             <div style={{ marginTop: '52px', marginLeft: '220px', padding: '10px' }}>
-                <DashCard title="Competence" onClick={(data) => this.doughClick(data)}/>
-                <DashCard title="POC" onClick={(data) => this.doughClick(data)}/>
+                {this.renderDashboard()}
             </div>
         )
     }
 }
 
 class DashCard extends Component {
-
 
     render() {
         let data = [
@@ -67,67 +95,32 @@ class DashCard extends Component {
             }
         ]
         return (
-            <div style={{marginBottom: '2px'}}>
+            <div style={{ marginBottom: '2px' }}>
                 <div className={'chartContainer'}>
                     <p className={'pHeader'}>{this.props.title}</p>
-                    <DoughNut name={this.props.title} toBeClassName={'relative floatLeft mediumSize'} onClick={this.props.onClick}/>
-                    <Table name = {this.props.title} data = {data} onClick = {this.props.onClick} className = {'homeClass'}/>
+                    <DoughNut name={this.props.title} toBeClassName={'relative floatLeft mediumSize'} onClick={this.props.onClick} />
+                    <Table name={this.props.title} data={data} onClick={this.props.onClick} className={'homeClass'} />
                 </div>
             </div>
         )
     }
 }
 
+const mapStateToProps = ({ details, competence }) => ({
+    allCompetences: competence.competences,
+    allDetails: details.details,
+    resourcePerCompetence: competence.resourcePerCompetence
+})
+
 const mapDispatchToProps = dispatch => bindActionCreators({
     getAllCompetences: () => getAllCompetences(),
-    changePage: (config) => push(config)
+    changePage: (config) => push(config),
+    addResourcePerCompetence: (data) => addResourcePerCompetence(data)
 }, dispatch);
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(Home);
 
 
-
-
-
-
-
-// const Home = props => (
-//     <div>
-//         <h1>Home</h1>
-//         <p>Count: {props.count}</p>
-
-//         <p>
-//             <button onClick={props.increment}>Increment</button>
-//             <button onClick={props.incrementAsync} disabled={props.isIncrementing} >Increment Async</button>
-//         </p>
-
-//         <p>
-//             <button onClick={props.decrement}>Decrementing</button>
-//             <button onClick={props.decrementAsync} disabled={props.isDecrementing}>Decrement Async</button>
-//         </p>
-
-//         <button onClick={() => props.changePage()}>Go to about page via redux</button>
-//     </div>
-// )
-
-// const mapStateToProps = ({ counter }) => ({
-//     count: counter.count,
-//     isIncrementing: counter.isIncrementing,
-//     isDecrementing: counter.isDecrementing
-// })
-
-// const mapDispatchToProps = dispatch => bindActionCreators({
-//     increment,
-//     incrementAsync,
-//     decrement,
-//     decrementAsync,
-//     changePage: () => push('/about-us')
-// }, dispatch);
-
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(Home)

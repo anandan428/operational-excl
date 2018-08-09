@@ -1,9 +1,11 @@
 import CompetenceApi from "../api/mockHome.api";
 
 export const GET_DASHBOARD = 'dashboard/GET_DASHBOARD';
+export const UPDATE_RESOURCECOMPETENCE = 'dashboard/UPDATE_RESOURCECOMPETENCE'
 
 const intialState = {
-    competences: []
+    competences: [],
+    resourcePerCompetence: []
 }
 
 export default (state = intialState, action) => {
@@ -13,6 +15,11 @@ export default (state = intialState, action) => {
                 ...state,
                 competences: Object.assign([], action.competence)
             };
+        case UPDATE_RESOURCECOMPETENCE:
+            return {
+                ...state,
+                resourcePerCompetence: Object.assign([], action.resourcePerCompetence)
+            }
         default: return state;
     }
 }
@@ -24,17 +31,17 @@ export const loadAllCompetence = (data) => {
     }
 }
 
-// CompetenceApi.getAllCompetence()
-//     .then(data => {
-//         dispatch ({
-//         type: GET_DASHBOARD,
-//         payload: data
-//     })}).catch(error => {
-//         throw(error);
-//     });
-
 export const getAllCompetences = () => {
     return dispatch => CompetenceApi.getAllCompetence()
         .then(data => dispatch(loadAllCompetence(data)))
         .catch(error => { throw (error) });
+}
+
+export const addResourcePerCompetence = (data) => {
+    return dispatch => {
+        dispatch({
+            type: UPDATE_RESOURCECOMPETENCE,
+            resourcePerCompetence: data
+        });
+    }
 }
