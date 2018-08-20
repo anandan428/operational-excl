@@ -16,12 +16,27 @@ class Details extends Component {
         
     }
 
+    renderHeaderName = () => {
+        if(this.props.state){
+            return(
+                <p style={{fontWeight: '600'}}>{this.props.state.data.groupName + '-' + this.props.state.data.data.name}</p>
+            );
+        } else {
+            return null;
+        }
+    }
+
+    onRowClick = (data) => {
+        debugger;
+        console.log(data);
+    }
+
     renderSelectedArea = (header) => {
         if(this.props.requestedData.length > 0){
             return (
                 <div style={{ marginTop: '52px', marginLeft: '220px', padding: '10px' }}>
-                    <p style={{fontWeight: '600'}}>{this.props.state.data.groupName + '-' + this.props.state.data.data.name}</p>
-                    <Table data={this.props.requestedData} headers={header} className = {'defaultClass'}/>
+                    {this.renderHeaderName()}
+                    <Table data={this.props.requestedData} headers={header} className = {'defaultClass'} onClick = {(data) => this.onRowClick(data)}/>
                 </div>
             )
         }

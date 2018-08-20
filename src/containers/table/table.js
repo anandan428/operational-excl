@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './table.css';
 
 class Table extends Component {
+
     withoutHeader = () => {
         let data = this.props.data;
         if (this.props.headers) {
@@ -9,18 +10,20 @@ class Table extends Component {
             return (
                 <table className={'withBorder'}>
                     <thead>
-                        {
-                            headers.map(header => <th>
-                                {
-                                    header.title
-                                }
-                            </th>)
-                        }
+                        <tr>
+                            {
+                                headers.map(header => <th>
+                                    {
+                                        header.title
+                                    }
+                                </th>)
+                            }
+                        </tr>
                     </thead>
                     <tbody>
                         {
                             data.map(row =>
-                                <tr>
+                                <tr key={row[this.props.pk]} onClick={() => this.props.onClick(row)}>
                                     {
                                         headers.map(header => <td>{row[header.field]}</td>)
                                     }
@@ -40,11 +43,12 @@ class Table extends Component {
                     <tbody>
                         {
                             data.map(row =>
-                                <tr>
+                                <tr key={row[this.props.pk]}>
                                     {keys.map(key => {
-                                        if(key !== 'id')
-                                            return(<td>{row[key]}</td>
-                                    )})}
+                                        if (key !== 'id')
+                                            return (<td>{row[key]}</td>
+                                            )
+                                    })}
                                 </tr>)
                         }
                     </tbody>
@@ -55,7 +59,7 @@ class Table extends Component {
 
     render() {
         return (
-            <div className = {this.props.className}>
+            <div className={this.props.className}>
                 {this.withoutHeader()}
             </div>
         )

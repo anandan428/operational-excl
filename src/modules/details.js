@@ -3,9 +3,11 @@ import competenceService from "../services/competence.service";
 import { addResourcePerCompetence } from "./resCompetence"
 
 export const GET_ALLDETAILS = 'details/GET_ALLDETAILS';
+export const GET_BYID = 'details/GET_BYID';
 
 const intialState = {
-    details: []
+    details: [],
+    resourceCompetence: []
 }
 
 export default (state = intialState, action) => {
@@ -39,3 +41,5 @@ export const getAllDetails = () => {
             .catch(error => { throw error })
     };
 }
+
+// export 

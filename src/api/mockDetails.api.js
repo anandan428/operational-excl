@@ -402,9 +402,9 @@ const resourses = [
 class Resourse {
     static getAllResourses(){
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(Object.assign([], resourses))
-            }, delay);
+            fetch("http://localhost:53284/GetAll")
+            .then((response) => response.json())
+            .then(data => resolve(data));
         })
     }
 }

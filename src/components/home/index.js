@@ -64,7 +64,7 @@ class DashCard extends Component {
                 <div className={'chartContainer'}>
                     <p className={'pHeader'}>{this.props.title}</p>
                     <DoughNut name = {this.props.title} groupId = {this.props.groupId} toBeClassName={'relative floatLeft mediumSize'} onClick={this.props.onClick} legends = {legends} mapdata = {mapdata}/>
-                    <Table name={this.props.title} data={mapdata} onClick={this.props.onClick} className={'homeClass'} />
+                    <Table name={this.props.title} data={mapdata} onClick={this.props.onClick} className={'homeClass'} pk = {'Id'}/>
                 </div>
             </div>
         )

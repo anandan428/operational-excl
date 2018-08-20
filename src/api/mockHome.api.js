@@ -59,9 +59,9 @@ const competences = [
 class CompetenceApi {
     static getAllCompetence(){
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(Object.assign([], competences))
-            }, delay);
+            fetch("http://localhost:53284/GetAllCompetence")
+            .then((response) => response.json())
+            .then(data => resolve(data));
         })
     }
 }
