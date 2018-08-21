@@ -28,6 +28,11 @@ class competenceService {
         if(learningGroupID && techId && details.length > 0)
             return details.filter(data => data.LearningGroupID === learningGroupID && data.TechID === techId);
     }
+
+    static getResourceDeatils(userID, details){
+        if(details.length > 0)
+        return details.filter(data => data.ResourseID === userID);
+    }
 }
 
 

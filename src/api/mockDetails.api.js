@@ -402,7 +402,7 @@ const resourses = [
 class Resourse {
     static getAllResourses(){
         return new Promise((resolve, reject) => {
-            fetch("http://localhost:53284/GetAll")
+            fetch("http://131.97.188.99:83/GetAll")
             .then((response) => response.json())
             .then(data => resolve(data));
         })

@@ -3,23 +3,29 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Table from '../../containers/table/table';
-import { getRequestedData } from '../../modules/resCompetence'
+import { getRequestedData } from '../../modules/resCompetence';
+import {
+    onRouteUpdate,
+    ROUTE_UPDATE_RESOURCE
+} from '../../modules/routingInfo'
 
 class Details extends Component {
 
     componentDidMount() {
-        if(this.props.state){
-            this.props.getRequestedData(this.props.state.data.groupId, this.props.state.data.data.id);
+        if (this.props.state.hasOwnProperty('groupId')) {
+            this.props.getRequestedData(this.props.state.groupId, this.props.state.data.id);
         } else {
-            this.props.changePage();
+            this.props.changePage({
+                pathname: '/'
+            });
         }
-        
+
     }
 
     renderHeaderName = () => {
-        if(this.props.state){
-            return(
-                <p style={{fontWeight: '600'}}>{this.props.state.data.groupName + '-' + this.props.state.data.data.name}</p>
+        if (this.props.state) {
+            return (
+                <p style={{ fontWeight: '600' }}>{this.props.state.groupName + '-' + this.props.state.data.name}</p>
             );
         } else {
             return null;
@@ -27,16 +33,18 @@ class Details extends Component {
     }
 
     onRowClick = (data) => {
-        debugger;
-        console.log(data);
+        this.props.updateRouterData(data.ResourseID);
+        this.props.changePage({
+            pathname: 'resource'
+        })
     }
 
     renderSelectedArea = (header) => {
-        if(this.props.requestedData.length > 0){
+        if (this.props.requestedData.length > 0) {
             return (
                 <div style={{ marginTop: '52px', marginLeft: '220px', padding: '10px' }}>
                     {this.renderHeaderName()}
-                    <Table data={this.props.requestedData} headers={header} className = {'defaultClass'} onClick = {(data) => this.onRowClick(data)}/>
+                    <Table data={this.props.requestedData} headers={header} className={'defaultClass'} onClick={(data) => this.onRowClick(data)} />
                 </div>
             )
         }
@@ -74,14 +82,18 @@ class Details extends Component {
     }
 }
 
-const mapStateToProps = ({ router, resourcecompetence }) => ({
-    state: router.location.state,
+const mapStateToProps = ({ resourcecompetence, routingInfo }) => ({
+    state: routingInfo.doughData,
     requestedData: resourcecompetence.requestedData
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     getRequestedData: (learningGroupID, techID) => getRequestedData(learningGroupID, techID),
-    changePage: () => push('/')
+    changePage: (config) => push(config),
+    updateRouterData: (data) => onRouteUpdate({
+        type: ROUTE_UPDATE_RESOURCE,
+        payload: data
+    })
 }, dispatch);
 
 export default connect(

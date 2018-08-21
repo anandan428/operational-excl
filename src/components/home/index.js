@@ -5,15 +5,17 @@ import { connect } from 'react-redux';
 import './home.css';
 import DoughNut from '../../containers/pieChart/pieChart';
 import Table from '../../containers/table/table';
+import {
+    onRouteUpdate,
+    ROUTE_UPDATE_DOUGH
+} from '../../modules/routingInfo'
 
 class Home extends Component {
 
     doughClick = (data) => {
+        this.props.updateRouterData(data)
         this.props.changePage({
-            pathname: 'details',
-            state: {
-                data: data
-            }
+            pathname: 'details'
         });
     }
 
@@ -21,7 +23,7 @@ class Home extends Component {
         if (this.props.resourcePerCompetence.length > 0) {
             return (
                 this.props.resourcePerCompetence.map(gdata =>
-                    <DashCard title={gdata.name} groupId = {gdata.id} onClick={(data) => this.doughClick(data)} gdata = {gdata.competence}/>
+                    <DashCard title={gdata.name} groupId={gdata.id} onClick={(data) => this.doughClick(data)} gdata={gdata.competence} />
                 )
             )
         } else {
@@ -58,13 +60,13 @@ class DashCard extends Component {
     }
 
     render() {
-        let {legends, mapdata} = this.getLegendsandData();
+        let { legends, mapdata } = this.getLegendsandData();
         return (
             <div style={{ marginBottom: '2px' }}>
                 <div className={'chartContainer'}>
                     <p className={'pHeader'}>{this.props.title}</p>
-                    <DoughNut name = {this.props.title} groupId = {this.props.groupId} toBeClassName={'relative floatLeft mediumSize'} onClick={this.props.onClick} legends = {legends} mapdata = {mapdata}/>
-                    <Table name={this.props.title} data={mapdata} onClick={this.props.onClick} className={'homeClass'} pk = {'Id'}/>
+                    <DoughNut name={this.props.title} groupId={this.props.groupId} toBeClassName={'relative floatLeft mediumSize'} onClick={this.props.onClick} legends={legends} mapdata={mapdata} />
+                    <Table name={this.props.title} data={mapdata} onClick={this.props.onClick} className={'homeClass'} pk={'Id'} />
                 </div>
             </div>
         )
@@ -76,7 +78,11 @@ const mapStateToProps = ({ resourcecompetence }) => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    changePage: (config) => push(config)
+    changePage: (config) => push(config),
+    updateRouterData: (data) => onRouteUpdate({ 
+        type: ROUTE_UPDATE_DOUGH,
+        payload: data
+     })
 }, dispatch);
 
 export default connect(

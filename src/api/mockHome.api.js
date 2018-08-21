@@ -59,7 +59,7 @@ const competences = [
 class CompetenceApi {
     static getAllCompetence(){
         return new Promise((resolve, reject) => {
-            fetch("http://localhost:53284/GetAllCompetence")
+            fetch("http://131.97.188.99:83/GetAllCompetence")
             .then((response) => response.json())
             .then(data => resolve(data));
         })
