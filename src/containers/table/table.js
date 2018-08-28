@@ -6,9 +6,10 @@ class Table extends Component {
     withoutHeader = () => {
         let data = this.props.data;
         if (this.props.headers) {
+            debugger;
             let headers = this.props.headers;
             return (
-                <table className={'withBorder'}>
+                <table className={this.props.appliedClassName ? '' : 'withBorder'}>
                     <thead>
                         <tr>
                             {
@@ -23,7 +24,7 @@ class Table extends Component {
                     <tbody>
                         {
                             data.map(row =>
-                                <tr key={row[this.props.pk]} onClick={() => this.props.onClick(row)}>
+                                <tr key={row[this.props.pk]}>
                                     {
                                         headers.map(header => <td>{row[header.field]}</td>)
                                     }
@@ -35,14 +36,21 @@ class Table extends Component {
         }
         else if (!this.props.header) {
             let keys = [];
-            if (data.length > 0) {
-                keys = Object.getOwnPropertyNames(data[0]);
+            let list = data.map(dataRow => {
+                return Object.assign({}, {
+                    name: dataRow.name,
+                    value: dataRow.employees.length,
+                    id: dataRow.id
+                });
+            });
+            if (list.length > 0) {
+                keys = Object.getOwnPropertyNames(list[0]);
             }
             return (
                 <table>
                     <tbody>
                         {
-                            data.map(row =>
+                            list.map(row =>
                                 <tr key={row[this.props.pk]}>
                                     {keys.map(key => {
                                         if (key !== 'id')

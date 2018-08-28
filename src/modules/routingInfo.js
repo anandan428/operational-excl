@@ -1,10 +1,11 @@
-export const ROUTE_UPDATE_DOUGH = 'routerinfo/ROUTE_UPDATE';
+export const ROUTE_UPDATE_DOUGH = 'routerinfo/ROUTE_UPDATE_DOUGH';
 export const ROUTE_UPDATE_RESOURCE = 'routerinfo/ROUTE_UPDATE_RESOURCE';
-
+export const ROUTE_UPDATE_BAR = 'routerinfo/ROUTE_UPDATE_BAR'
 
 const intialState = {
     doughData: {},
-    resourceData: ''
+    resourceData: '',
+    barData: ''
 }
 
 export default (state = intialState, action) => {
@@ -18,6 +19,11 @@ export default (state = intialState, action) => {
             return {
                 ...state,
                 resourceData: action.payload
+            }
+        case ROUTE_UPDATE_BAR:
+            return {
+                ...state,
+                barData: action.payload
             }
         default: return state;
     }

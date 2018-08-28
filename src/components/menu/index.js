@@ -21,6 +21,11 @@ class Menu extends React.Component {
                         <ol className="navLinks">
                             <li>
                                 <a href="/" onClick={(event) => this.onNavLink(event, 0)} className={ this.props.currentId === 0 ? 'navHere': ''}>Home</a>
+                                <ol className="navLinks">
+                                    <li>
+                                        <a href = "/">test</a>
+                                    </li>
+                                </ol>
                             </li>
                             <li>
                                 <a href="/" onClick={(event) => this.onNavLink(event, 1)} className={ this.props.currentId === 1 ? 'navHere': ''}>Some Page</a>

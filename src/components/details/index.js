@@ -44,7 +44,7 @@ class Details extends Component {
             return (
                 <div style={{ marginTop: '52px', marginLeft: '220px', padding: '10px' }}>
                     {this.renderHeaderName()}
-                    <Table data={this.props.requestedData} headers={header} className={'defaultClass'} onClick={(data) => this.onRowClick(data)} />
+                    <Table data={this.props.requestedData} headers={header} className={'defaultClass'} appliedClassName = {false} onClick={(data) => this.onRowClick(data)} />
                 </div>
             )
         }

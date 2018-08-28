@@ -3,27 +3,35 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import './home.css';
-import DoughNut from '../../containers/pieChart/pieChart';
 import Table from '../../containers/table/table';
 import {
     onRouteUpdate,
-    ROUTE_UPDATE_DOUGH
+    ROUTE_UPDATE_DOUGH,
+    ROUTE_UPDATE_BAR
 } from '../../modules/routingInfo'
+import Chart from '../../containers/Charts/chart';
+import genericMethod from '../../services/genericMethod.service';
+import pocService from '../../services/poc.service'
 
 class Home extends Component {
 
     doughClick = (data) => {
-        this.props.updateRouterData(data)
+        this.props.updateRouterData(data, 'dough')
         this.props.changePage({
             pathname: 'details'
         });
     }
 
-    renderDashboard = () => {
+    barClick = (data) => {
+        this.props.updateRouterData(data, 'bar');
+        console.log(data);
+    }
+
+    renderStudyDashboard = () => {
         if (this.props.resourcePerCompetence.length > 0) {
             return (
                 this.props.resourcePerCompetence.map(gdata =>
-                    <DashCard title={gdata.name} groupId={gdata.id} onClick={(data) => this.doughClick(data)} gdata={gdata.competence} />
+                    <DashCard chartType={'doughnut'} title={gdata.name} groupId={gdata.id} gdata={gdata.competence} graphClick = {'dough'} onClick = {(data) => this.doughClick(data)}/>
                 )
             )
         } else {
@@ -31,10 +39,32 @@ class Home extends Component {
         }
     }
 
+    renderPOCDashboard = () => {
+        let header = [{
+            title: 'Department',
+            field: 'name'
+        },
+        {
+            title: 'Total POC',
+            field: 'totalPOC'
+        },
+        {
+            title: 'POC -> Project',
+            field: 'implementedPOC'
+        }];
+        if (this.props.pocList.length > 0) {
+            let data = pocService.prepareDataForBar(this.props.pocList);
+            return (<DashCard chartType={'barchart'} title={'Sample'} gdata={data} headers={header} onClick = {(data) => this.barClick(data)}  graphClick = {'bar'}/>);
+        }
+        return null;
+    }
+
+
     render() {
         return (
-            <div style={{ marginTop: '52px', marginLeft: '220px', padding: '10px' }}>
-                {this.renderDashboard()}
+            <div style={{ padding: '10px', width: '100%' }}>
+                {this.renderStudyDashboard()}
+                {this.renderPOCDashboard()}
             </div>
         )
     }
@@ -42,47 +72,31 @@ class Home extends Component {
 
 class DashCard extends Component {
 
-    getLegendsandData = () => {
-        let legends = [];
-        let mapdata = [];
-        for (const dataRow of this.props.gdata) {
-            mapdata.push(Object.assign({}, {
-                name: dataRow.name,
-                value: dataRow.employees.length,
-                id: dataRow.id
-            }));
-            legends.push(dataRow.name);
-        }
-        return {
-            legends: legends,
-            mapdata: mapdata
-        }
-    }
 
     render() {
-        let { legends, mapdata } = this.getLegendsandData();
         return (
             <div style={{ marginBottom: '2px' }}>
                 <div className={'chartContainer'}>
                     <p className={'pHeader'}>{this.props.title}</p>
-                    <DoughNut name={this.props.title} groupId={this.props.groupId} toBeClassName={'relative floatLeft mediumSize'} onClick={this.props.onClick} legends={legends} mapdata={mapdata} />
-                    <Table name={this.props.title} data={mapdata} onClick={this.props.onClick} className={'homeClass'} pk={'Id'} />
+                    <Chart type={this.props.chartType} name={this.props.title} groupId={this.props.groupId} toBeClassName={'relative floatLeft mediumSize'} onClick={this.props.onClick} mapdata={this.props.gdata} graphClick = {this.props.graphClick}/>
+                    <Table name={this.props.title} data={this.props.gdata} onClick={this.props.onClick} className={'homeClass'} appliedClassName={true} pk={'Id'} headers={this.props.headers} />
                 </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ resourcecompetence }) => ({
-    resourcePerCompetence: resourcecompetence.resourcePerCompetence
+const mapStateToProps = ({ resourcecompetence, competence }) => ({
+    resourcePerCompetence: resourcecompetence.resourcePerCompetence,
+    pocList: competence.poc
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     changePage: (config) => push(config),
-    updateRouterData: (data) => onRouteUpdate({ 
-        type: ROUTE_UPDATE_DOUGH,
+    updateRouterData: (data, chart) => onRouteUpdate({
+        type: chart === 'dough' ? ROUTE_UPDATE_DOUGH : ROUTE_UPDATE_BAR,
         payload: data
-     })
+    })
 }, dispatch);
 
 export default connect(

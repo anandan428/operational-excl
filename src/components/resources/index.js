@@ -57,7 +57,7 @@ class Resources extends Component {
             return (
                 <div>
                     <p style={{ fontWeight: '600' }}>{this.state.resourceName + '-' + this.props.state}</p>
-                    <Table data={this.state.tableData} headers={header} />
+                    <Table data={this.state.tableData} headers={header} appliedClassName = {false} />
                 </div>);
         }
         return null;
