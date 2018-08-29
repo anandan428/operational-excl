@@ -56,7 +56,7 @@ class Home extends Component {
         }];
         if (this.props.pocList.length > 0) {
             let data = pocService.prepareDataForBar(this.props.pocList);
-            return (<DashCard chartType={'barchart'} title={'Sample'} gdata={data} headers={header} onClick = {(data) => this.barClick(data)}  graphClick = {'bar'} toBeClassName = {'height400'}/>);
+            return (<DashCard chartType={'barchart'} title={'POC'} gdata={data} headers={header} onClick = {(data) => this.barClick(data)}  graphClick = {'bar'} toBeClassName = {'height400'}/>);
         }
         return null;
     }
