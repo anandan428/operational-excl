@@ -1,11 +1,13 @@
 export const ROUTE_UPDATE_DOUGH = 'routerinfo/ROUTE_UPDATE_DOUGH';
 export const ROUTE_UPDATE_RESOURCE = 'routerinfo/ROUTE_UPDATE_RESOURCE';
-export const ROUTE_UPDATE_BAR = 'routerinfo/ROUTE_UPDATE_BAR'
+export const ROUTE_UPDATE_BAR = 'routerinfo/ROUTE_UPDATE_BAR';
+export const ROUTE_UPDATE_PATHNAME = 'router/ROUTE_UPDATE_PATHNAME';
 
 const intialState = {
     doughData: {},
     resourceData: '',
-    barData: ''
+    barData: '',
+    pathName: '/'
 }
 
 export default (state = intialState, action) => {
@@ -13,7 +15,8 @@ export default (state = intialState, action) => {
         case ROUTE_UPDATE_DOUGH:
             return {
                 ...state,
-                doughData: Object.assign({}, action.payload)
+                doughData: Object.assign({}, action.payload),
+                barData: ''
             };
         case ROUTE_UPDATE_RESOURCE:
             return {
@@ -23,7 +26,13 @@ export default (state = intialState, action) => {
         case ROUTE_UPDATE_BAR:
             return {
                 ...state,
-                barData: action.payload
+                barData: action.payload,
+                doughData: {}
+            }
+        case ROUTE_UPDATE_PATHNAME:
+            return {
+                ...state,
+                pathName: action.pathName
             }
         default: return state;
     }
@@ -31,4 +40,11 @@ export default (state = intialState, action) => {
 
 export const onRouteUpdate = (data) => {
     return data;
+}
+
+export const pathEvent = (pathname) => {
+    return {
+        type: ROUTE_UPDATE_PATHNAME,
+        pathName: pathname
+    }
 }

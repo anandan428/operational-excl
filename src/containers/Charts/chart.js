@@ -74,7 +74,6 @@ class Chart extends Component {
                 }
                 break;
             case 'barchart':
-                console.log(this.props.mapdata.map(a => a.name))
                 _mapOptions = {
                     tooltip: {
                         trigger: 'axis'

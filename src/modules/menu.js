@@ -1,7 +1,7 @@
 export const HIGHLIGHT = 'menu/HIGHLIGHT'
 
 const intialState = {
-    currentID: 0
+    currentID: ''
 }
 
 export default (state = intialState, action) => {
@@ -17,10 +17,8 @@ export default (state = intialState, action) => {
 }
 
 export const changeID = (id) => {
-    return dispatch => {
-        dispatch({
-            type: HIGHLIGHT,
-            ID: id
-        });
+    return {
+        type: HIGHLIGHT,
+        ID: id
     }
 }
