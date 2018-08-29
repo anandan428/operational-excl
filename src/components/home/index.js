@@ -23,8 +23,10 @@ class Home extends Component {
     }
 
     barClick = (data) => {
-        this.props.updateRouterData(data, 'bar');
-        console.log(data);
+        this.props.updateRouterData(data.data.name, 'bar');
+        this.props.changePage({
+            pathname: 'details'
+        });
     }
 
     renderStudyDashboard = () => {
@@ -54,7 +56,7 @@ class Home extends Component {
         }];
         if (this.props.pocList.length > 0) {
             let data = pocService.prepareDataForBar(this.props.pocList);
-            return (<DashCard chartType={'barchart'} title={'Sample'} gdata={data} headers={header} onClick = {(data) => this.barClick(data)}  graphClick = {'bar'}/>);
+            return (<DashCard chartType={'barchart'} title={'Sample'} gdata={data} headers={header} onClick = {(data) => this.barClick(data)}  graphClick = {'bar'} toBeClassName = {'height400'}/>);
         }
         return null;
     }
@@ -78,7 +80,7 @@ class DashCard extends Component {
             <div style={{ marginBottom: '2px' }}>
                 <div className={'chartContainer'}>
                     <p className={'pHeader'}>{this.props.title}</p>
-                    <Chart type={this.props.chartType} name={this.props.title} groupId={this.props.groupId} toBeClassName={'relative floatLeft mediumSize'} onClick={this.props.onClick} mapdata={this.props.gdata} graphClick = {this.props.graphClick}/>
+                    <Chart type={this.props.chartType} name={this.props.title} groupId={this.props.groupId} toBeClassName={'relative floatLeft ' + (this.props.toBeClassName ? this.props.toBeClassName : 'mediumSize')} onClick={this.props.onClick} mapdata={this.props.gdata} graphClick = {this.props.graphClick}/>
                     <Table name={this.props.title} data={this.props.gdata} onClick={this.props.onClick} className={'homeClass'} appliedClassName={true} pk={'Id'} headers={this.props.headers} />
                 </div>
             </div>

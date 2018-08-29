@@ -8,28 +8,34 @@ import {
     onRouteUpdate,
     ROUTE_UPDATE_RESOURCE
 } from '../../modules/routingInfo'
+import pocService from '../../services/poc.service';
+import './detail.css'
 
 class Details extends Component {
 
     componentDidMount() {
-        if (this.props.state.hasOwnProperty('groupId')) {
+        if (this.props.doughData.hasOwnProperty('groupId')) {
             this.props.getRequestedData(this.props.state.groupId, this.props.state.data.id);
+        } else if (this.props.barData) {
+
         } else {
             this.props.changePage({
                 pathname: '/'
             });
         }
-
     }
 
     renderHeaderName = () => {
         if (this.props.state) {
             return (
-                <p style={{ fontWeight: '600' }}>{this.props.state.groupName + '-' + this.props.state.data.name}</p>
+                <p style={{ fontWeight: '600' }}>{this.props.doughData.groupName + '-' + this.props.doughData.data.name}</p>
             );
-        } else {
-            return null;
+        } else if (this.props.barData) {
+            return (
+                <p style={{ fontWeight: '600' }}>{this.props.barData}</p>
+            )
         }
+        return null;
     }
 
     onRowClick = (data) => {
@@ -39,20 +45,42 @@ class Details extends Component {
         })
     }
 
-    renderSelectedArea = (header) => {
+    renderResourceDetails = (header) => {
         if (this.props.requestedData.length > 0) {
             return (
-                <div style={{ marginTop: '52px', marginLeft: '220px', padding: '10px' }}>
+                <div>
                     {this.renderHeaderName()}
-                    <Table data={this.props.requestedData} headers={header} className={'defaultClass'} appliedClassName = {false} onClick={(data) => this.onRowClick(data)} />
+                    <Table data={this.props.requestedData} headers={header} className={'defaultClass'} appliedClassName={false} onClick={(data) => this.onRowClick(data)} />
                 </div>
             )
         }
         return null;
     }
 
+    renderPOCDetails = (header) => {
+        if (this.props.barData) {
+            let intData = pocService.getDataForName(this.props.barData, this.props.pocList);
+            debugger;
+            if (intData.length > 0) {
+                let impData = pocService.implementedPOCList(intData[0].pocList)
+                if (intData[0].pocList.length > 0) {
+                    return (
+                        <div>
+                            {this.renderHeaderName()}
+                            <Table data={intData[0].pocList} headers={header} className={'defaultClass'} appliedClassName={false} />
+                            <p className = {'pocClass'}>POC -> Project</p>
+                            <Table data = {impData} headers = {header} className = {'defaultClass'} appliedClassName = {false} />
+                        </div>
+                    )
+
+                }
+            }
+        }
+        return null;
+    }
+
     render() {
-        let header = [
+        let resHeader = [
             {
                 title: 'VCN ID',
                 field: 'ResourseID'
@@ -74,17 +102,34 @@ class Details extends Component {
                 field: 'ActivityManagerName'
             }
         ];
+        let pocHeader = [
+            {
+                title: 'Name',
+                field: 'name'
+            },
+            {
+                title: 'Description',
+                field: 'description'
+            },
+            {
+                title: 'Technology',
+                field: 'technology'
+            }
+        ];
         return (
-            <div>
-                {this.renderSelectedArea(header)}
+            <div style={{ padding: '10px', width: '100%' }}>
+                {this.renderResourceDetails(resHeader)}
+                {this.renderPOCDetails(pocHeader)}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ resourcecompetence, routingInfo }) => ({
-    state: routingInfo.doughData,
-    requestedData: resourcecompetence.requestedData
+const mapStateToProps = ({ resourcecompetence, routingInfo, competence }) => ({
+    doughData: routingInfo.doughData,
+    barData: routingInfo.barData,
+    requestedData: resourcecompetence.requestedData,
+    pocList: competence.poc
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

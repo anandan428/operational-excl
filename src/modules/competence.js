@@ -21,7 +21,7 @@ export default (state = intialState, action) => {
         case GET_POC:
             return {
                 ...state,
-                poc: Object.assign([], action.pocList)
+                poc: [...action.pocList.values()]
             }
         default: return state;
     }
@@ -64,4 +64,3 @@ export const getAllPOC = () => {
             .catch(error => { throw (error) });
     }
 }
-

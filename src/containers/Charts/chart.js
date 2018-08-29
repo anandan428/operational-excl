@@ -13,7 +13,6 @@ class Chart extends Component {
         var chart = ECharts.init(document.getElementById(this.props.name));
         chart.setOption(_mapOptions);
         chart.on('click', (data) => {
-            debugger;
             switch (this.props.graphClick) {
                 case 'bar':
                     this.props.onClick({ data: {
@@ -86,7 +85,10 @@ class Chart extends Component {
                     xAxis: [
                         {
                             type: 'category',
-                            data: this.props.mapdata.map(a => a.name)
+                            data: this.props.mapdata.map(a => a.name),
+                            axisLabel: {
+                                rotate: 90
+                            }
                         }
                     ],
                     yAxis: [
@@ -105,7 +107,10 @@ class Chart extends Component {
                             type: 'bar',
                             data: this.props.mapdata.map(a => a.implementedPOC)
                         }
-                    ]
+                    ],
+                    grid: {
+                        y2: 150
+                    }
                 };
                 break;
             default: break;

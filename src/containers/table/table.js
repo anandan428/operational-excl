@@ -6,7 +6,6 @@ class Table extends Component {
     withoutHeader = () => {
         let data = this.props.data;
         if (this.props.headers) {
-            debugger;
             let headers = this.props.headers;
             return (
                 <table className={this.props.appliedClassName ? '' : 'withBorder'}>
