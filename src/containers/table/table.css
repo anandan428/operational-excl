@@ -29,8 +29,10 @@ table th{
     background: whitesmoke;
     position: relative;
     float: left;
-    height: 300px;
-    width: 57%;
+    max-height: 300px;
+    width: 53%;
+    overflow:hidden;
+    overflow-y: auto;
 }
 
 .defaultClass {

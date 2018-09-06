@@ -34,6 +34,7 @@ class Chart extends Component {
                         formatter: "{a} <br/>{b}: {c} ({d}%)"
                     },
                     legend: {
+                        type: 'scroll',
                         orient: 'vertical',
                         x: 'left',
                         data: this.props.mapdata.map(a => a.name)
