@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import './home.css';
+import './event.css';
 import Table from '../../containers/table/table';
 import {
     onRouteUpdate,
@@ -13,50 +13,32 @@ import Chart from '../../containers/Charts/chart';
 import genericMethod from '../../services/genericMethod.service';
 import pocService from '../../services/poc.service'
 
-class Home extends Component {
-
-    doughClick = (data) => {
-        this.props.updateRouterData(data, 'dough')
-        this.props.changePage({
-            pathname: 'details'
-        });
-    }
+class EventPage extends Component {
 
     barClick = (data) => {
-        this.props.updateRouterData(data.data.name, 'bar', 'POC');
+        debugger;
+        this.props.updateRouterData(data.data.name, 'bar', 'EVENT');
         this.props.changePage({
             pathname: 'details'
         });
-    }
-
-    renderStudyDashboard = () => {
-        if (this.props.resourcePerCompetence.length > 0) {
-            return (
-                this.props.resourcePerCompetence.map(gdata =>
-                    <DashCard chartType={'doughnut'} title={gdata.name} groupId={gdata.id} gdata={gdata.competence} graphClick={'dough'} onClick={(data) => this.doughClick(data)} />
-                )
-            )
-        } else {
-            return null;
-        }
     }
 
     renderPOCDashboard = () => {
         let header = [{
-            title: 'Department',
+            title: 'Event Namae',
             field: 'name'
         },
         {
-            title: 'Total POC',
+            title: 'Total Ideas',
             field: 'totalPOC'
         },
         {
-            title: 'POC -> Project',
+            title: 'Idea -> Project',
             field: 'implementedPOC'
         }];
-        if (this.props.pocList.length > 0) {
-            let data = pocService.prepareDataForBar(this.props.pocList);
-            return (<DashCard chartType={'barchart'} title={'POC'} gdata={data} headers={header} onClick={(data) => this.barClick(data)} graphClick={'bar'} toBeClassName={'height400'} />);
+        if (this.props.eventList.length > 0) {
+            let data = pocService.prepareDataForBar(this.props.eventList);
+            return (<DashCard chartType={'barchart'} title={'EVENT'} gdata={data} headers={header} onClick={(data) => this.barClick(data)} graphClick={'bar'} toBeClassName={'height400'} />);
         }
         return null;
     }
@@ -65,7 +47,6 @@ class Home extends Component {
     render() {
         return (
             <div style={{ padding: '10px', width: '100%' }}>
-                {this.renderStudyDashboard()}
                 {this.renderPOCDashboard()}
             </div>
         )
@@ -88,9 +69,8 @@ class DashCard extends Component {
     }
 }
 
-const mapStateToProps = ({ resourcecompetence, competence }) => ({
-    resourcePerCompetence: resourcecompetence.resourcePerCompetence,
-    pocList: competence.poc
+const mapStateToProps = ({ competence }) => ({
+    eventList: competence.event
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -107,6 +87,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Home);
+)(EventPage);
 
 

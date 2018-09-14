@@ -7,6 +7,7 @@ const intialState = {
     doughData: {},
     resourceData: '',
     barData: '',
+    chartType: '',
     pathName: '/'
 }
 

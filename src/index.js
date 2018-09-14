@@ -6,12 +6,13 @@ import store, { history } from './store';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import { getAllCompetences, getAllPOC } from './modules/competence';
+import { getAllCompetences, getAllPOC, getAllEvents } from './modules/competence';
 import { getAllDetails } from './modules/details';
 
 store.dispatch(getAllCompetences());
 store.dispatch(getAllDetails());
 store.dispatch(getAllPOC());
+store.dispatch(getAllEvents());
 ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
