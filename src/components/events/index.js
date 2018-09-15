@@ -16,7 +16,6 @@ import pocService from '../../services/poc.service'
 class EventPage extends Component {
 
     barClick = (data) => {
-        debugger;
         this.props.updateRouterData(data.data.name, 'bar', 'EVENT');
         this.props.changePage({
             pathname: 'details'
@@ -33,7 +32,7 @@ class EventPage extends Component {
             field: 'totalPOC'
         },
         {
-            title: 'Idea -> Project',
+            title: 'Solution accepted by business',
             field: 'implementedPOC'
         }];
         if (this.props.eventList.length > 0) {

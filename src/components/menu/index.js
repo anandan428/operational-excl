@@ -29,9 +29,10 @@ class Menu extends React.Component {
         return null;
     }
 
-    goToHome = () => {
-        this.props.changePage('/');
-        this.props.updateMenu('');
+    goToHome = (updateItem) => {
+        if (this.props.pathname !== '/')
+            this.props.changePage('/');
+        this.props.updateMenu(updateItem);
     }
 
     goToEvents = () => {
@@ -40,23 +41,22 @@ class Menu extends React.Component {
     }
 
     render() {
-        console.log(this.props.pathname);
         return (
             <div className="menu-container">
                 <div style={{ position: 'sticky', top: '72px' }}>
                     <nav role="navigation">
                         <ol className="navLinks">
                             <li className="firstLi">
-                                <a href="javascript:void(0)" className={(this.props.pathname === '/' && !this.props.menuitem) ? 'navHere' : ''} onClick={() => this.goToHome()} style={{}}>Home</a>
+                                <a href="javascript:void(0)" className={(this.props.pathname === '/' && !this.props.menuitem) ? 'navHere' : ''} onClick={() => this.goToHome('')} style={{}}>Home</a>
                             </li>
                             <li>
                                 <i className="fas fa-trophy"></i>Competence
                                 <ol className="insideOl">
                                     <li>
-                                        <a href="javascript:void(0)" className={(this.props.menuitem === 'studygroup') ? 'navHere' : ''} onClick={() => this.props.updateMenu('studygroup')}>Study Group</a>
+                                        <a href="javascript:void(0)" className={(this.props.menuitem === 'studygroup') ? 'navHere' : ''} onClick={() => this.goToHome('studygroup')}>Study Group</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0)" className={(this.props.menuitem === 'poc') ? 'navHere' : ''} onClick={() => this.props.updateMenu('poc')}>POC</a>
+                                        <a href="javascript:void(0)" className={(this.props.menuitem === 'poc') ? 'navHere' : ''} onClick={() => this.goToHome('poc')}>POC</a>
                                     </li>
                                 </ol>
                             </li>
@@ -64,7 +64,7 @@ class Menu extends React.Component {
                                 <i className="fab fa-elementor"></i>Events
                                 <ol className="insideOl">
                                     <li>
-                                        <a href="javascript:void(0)" className={(this.props.menuitem === 'hackathon') ? 'navHere' : ''} onClick={() => {this.goToEvents('hackathon'); }}>Hackathon/ V-Innovate</a>
+                                        <a href="javascript:void(0)" className={(this.props.menuitem === 'hackathon') ? 'navHere' : ''} onClick={() => { this.goToEvents('hackathon'); }}>Hackathon</a>
                                     </li>
                                 </ol>
                             </li>

@@ -61,12 +61,32 @@ class Home extends Component {
         return null;
     }
 
+    renderWhat = () => {
+        // if(this.props.showWhat === 'studygroup'){
+        //     return(
+        //         <div>
+        //             {this.renderStudyDashboard()}
+        //         </div>
+        //     )
+        // } else if(this.props.showWhat === 'poc'){
+        //     return(
+        //         <div>
+        //             {this.renderPOCDashboard()}
+        //         </div>
+        //     )
+        // }
+        return(
+            <div>
+                {this.renderStudyDashboard()}
+                {this.renderPOCDashboard()}
+            </div>
+        )
+    }
 
     render() {
         return (
             <div style={{ padding: '10px', width: '100%' }}>
-                {this.renderStudyDashboard()}
-                {this.renderPOCDashboard()}
+                {this.renderWhat()}
             </div>
         )
     }
@@ -88,9 +108,10 @@ class DashCard extends Component {
     }
 }
 
-const mapStateToProps = ({ resourcecompetence, competence }) => ({
+const mapStateToProps = ({ resourcecompetence, competence, menu }) => ({
     resourcePerCompetence: resourcecompetence.resourcePerCompetence,
-    pocList: competence.poc
+    pocList: competence.poc,
+    showWhat: menu.currentID
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

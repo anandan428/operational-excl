@@ -58,7 +58,6 @@ class Details extends Component {
     }
 
     renderPOCDetails = (header) => {
-        debugger;
         if (this.props.barData.hasOwnProperty('data')) {
             if (this.props.barData.data) {
                 let intData = pocService.getDataForName(this.props.barData.data, (this.props.barData.chartType === 'POC' ? this.props.pocList : this.props.eventList));
