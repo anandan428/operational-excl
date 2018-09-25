@@ -3,4 +3,25 @@
     background: #fafafb;
     border: 1px solid lightgrey;
     overflow: hidden;
+    height:600px;
 }
+.reporter{
+    float:right
+}
+.heading img {
+    float: right;
+    width: 100px;
+    height: 100px;
+    background: #555;
+  }
+  
+  .heading h1 {
+    position: relative;
+    top: 18px;
+    left: 10px;
+    height:4rem;
+  }
+  .article p{
+      color:grey;
+      width:95% !important;
+  }

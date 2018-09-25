@@ -11,6 +11,7 @@ const intialState = {
     poc: []
 }
 
+//Reducer
 export default (state = intialState, action) => {
     switch (action.type) {
         case GET_DASHBOARD:
@@ -26,21 +27,21 @@ export default (state = intialState, action) => {
         default: return state;
     }
 }
-
+//Action
 export const loadAllCompetence = (data) => {
     return {
         type: GET_DASHBOARD,
         competence: data
     }
 }
-
+//Action
 export const loadAllPOC = (data) => {
     return {
         type: GET_POC,
         pocList: data
     }
 }
-
+//Action
 export const getAllCompetences = () => {
     return (dispatch, getState) => {
         CompetenceApi.getAllCompetence()
@@ -54,7 +55,7 @@ export const getAllCompetences = () => {
             .catch(error => { throw (error) });
     }
 }
-
+//Action
 export const getAllPOC = () => {
     return (dispatch) => {
         POCApi.getAllPOC()

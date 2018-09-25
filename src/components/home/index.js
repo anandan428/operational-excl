@@ -14,59 +14,62 @@ import genericMethod from '../../services/genericMethod.service';
 import pocService from '../../services/poc.service'
 
 class Home extends Component {
-
-    doughClick = (data) => {
-        this.props.updateRouterData(data, 'dough')
-        this.props.changePage({
-            pathname: 'details'
-        });
+    state = {
+        id: ''
     }
 
-    barClick = (data) => {
-        this.props.updateRouterData(data.data.name, 'bar');
-        this.props.changePage({
-            pathname: 'details'
-        });
-    }
 
-    renderStudyDashboard = () => {
-        if (this.props.resourcePerCompetence.length > 0) {
-            return (
-                this.props.resourcePerCompetence.map(gdata =>
-                    <DashCard chartType={'doughnut'} title={gdata.name} groupId={gdata.id} gdata={gdata.competence} graphClick = {'dough'} onClick = {(data) => this.doughClick(data)}/>
+
+    renderArtContent = () => {
+        if(this.state.id){
+            debugger;
+        return (this.props.artList.map(data => {
+            if (data.Id === this.state.id) {
+                return (
+                    <div>
+                        <article>
+                            <h1>Google Chrome</h1>
+                            <p>Google Chrome is a free, open-source web browser developed by Google, released in 2008.</p>
+                        </article>
+                    </div>
                 )
-            )
-        } else {
-            return null;
-        }
-    }
-
-    renderPOCDashboard = () => {
-        let header = [{
-            title: 'Department',
-            field: 'name'
-        },
-        {
-            title: 'Total POC',
-            field: 'totalPOC'
-        },
-        {
-            title: 'POC -> Project',
-            field: 'implementedPOC'
-        }];
-        if (this.props.pocList.length > 0) {
-            let data = pocService.prepareDataForBar(this.props.pocList);
-            return (<DashCard chartType={'barchart'} title={'POC'} gdata={data} headers={header} onClick = {(data) => this.barClick(data)}  graphClick = {'bar'} toBeClassName = {'height400'}/>);
-        }
+            }
+        }));}
         return null;
     }
 
+    getArticleContent = (id) => {
+        debugger;
+        // this.setState({id: id});
+        
 
+    }
+    renderArticleListHeadings = () => {
+        if (this.props.artList.length > 0)
+            return (
+                this.props.artList.map(data => {
+                    return (
+                        
+                        // <div onClick={() => this.getArticleContent(data.Id)}>
+                        //     {data.Heading}
+                        //     <img src="{require('../src/logo.jpg')}" style={{ width: '10px', height: '10pxnpm ' }} />
+                        // </div>
+                    <div class="card" style={{width: '50rem',height:'8rem'}}>
+                        <img class="card-img-top" src="{require('../../../public/thumbnail.png')}" alt="Card image cap" />
+                        <div class="card-body">
+                          <h5 class="card-title">{data.Heading}</h5>
+                          <a href="#" onClick={() => this.getArticleContent(data.Id)} class="card-link">Read more..</a>
+                        </div>
+                    </div>
+                    )
+                }));
+        return null;
+    }
     render() {
         return (
             <div style={{ padding: '10px', width: '100%' }}>
-                {this.renderStudyDashboard()}
-                {this.renderPOCDashboard()}
+                {this.renderArticleListHeadings()}
+                {this.renderArtContent()}
             </div>
         )
     }
@@ -80,7 +83,7 @@ class DashCard extends Component {
             <div style={{ marginBottom: '2px' }}>
                 <div className={'chartContainer'}>
                     <p className={'pHeader'}>{this.props.title}</p>
-                    <Chart type={this.props.chartType} name={this.props.title} groupId={this.props.groupId} toBeClassName={'relative floatLeft ' + (this.props.toBeClassName ? this.props.toBeClassName : 'mediumSize')} onClick={this.props.onClick} mapdata={this.props.gdata} graphClick = {this.props.graphClick}/>
+                    <Chart type={this.props.chartType} name={this.props.title} groupId={this.props.groupId} toBeClassName={'relative floatLeft ' + (this.props.toBeClassName ? this.props.toBeClassName : 'mediumSize')} onClick={this.props.onClick} mapdata={this.props.gdata} graphClick={this.props.graphClick} />
                     <Table name={this.props.title} data={this.props.gdata} onClick={this.props.onClick} className={'homeClass'} appliedClassName={true} pk={'Id'} headers={this.props.headers} />
                 </div>
             </div>
@@ -88,9 +91,12 @@ class DashCard extends Component {
     }
 }
 
-const mapStateToProps = ({ resourcecompetence, competence }) => ({
+//store -> state this state u want in ur compomemt
+//mapStatetoProps, state into component Props
+const mapStateToProps = ({ resourcecompetence, competence, article }) => ({
     resourcePerCompetence: resourcecompetence.resourcePerCompetence,
-    pocList: competence.poc
+    pocList: competence.poc,
+    artList: article.art
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

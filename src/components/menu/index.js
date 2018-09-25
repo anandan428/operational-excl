@@ -45,20 +45,31 @@ class Menu extends React.Component {
                                 <a href="javascript:void(0)" className = { (this.props.pathname === '/' && !this.props.menuitem) ? 'navHere' : ''} onClick = {() => this.goToHome()}>Home</a>
                             </li>
                             <li>
-                                <i className="fas fa-trophy"></i>Competence
+                                <i className="fas fa-book"></i>October Volume 20
                                 <ol className="insideOl">
-                                    <li>
-                                        <a href="javascript:void(0)" className = { (this.props.menuitem === 'studygroup') ? 'navHere' : ''} onClick = {() => this.props.updateMenu('studygroup')}>Study Group</a>
+                                    <li >
+                                    <a href="javascript:void(0)" className = { (this.props.menuitem === 'studygroup') ? 'navHere' : ''} onClick = {() => this.props.updateMenu('studygroup')}>Technical Articals</a>
                                     </li>
-                                    <li>
-                                        <a href="javascript:void(0)" className = { (this.props.menuitem === 'poc') ? 'navHere' : ''} onClick = {() => this.props.updateMenu('poc')}>POC</a>
+                                    <li >
+                                       <a href="javascript:void(0)" className = { (this.props.menuitem === 'poc') ? 'navHere' : ''} onClick = {() => this.props.updateMenu('poc')}>General Articals</a>
+                                    </li>
+                                    <li >
+                                    <a href="javascript:void(0)" className = { (this.props.menuitem === 'poc') ? 'navHere' : ''} onClick = {() => this.props.updateMenu('poc')}>Spot Awards</a>
+                                    </li>
+                                    <li >
+                                    <a href="javascript:void(0)" className = { (this.props.menuitem === 'poc') ? 'navHere' : ''} onClick = {() => this.props.updateMenu('poc')}>Did you Know</a>
+                                    </li>
+                                    <li >
+                                        <a href="javascript:void(0)" className = { (this.props.menuitem === 'poc') ? 'navHere' : ''} onClick = {() => this.props.updateMenu('poc')}>Annoncements</a>
                                     </li>
                                 </ol>
                             </li>
                             <li>
-                                <i className="fas fa-bullhorn"></i>Announcements
+                                <i className="fas fa-book"></i>Archived
                                 <ol className="insideOl">
-                                   {this.renderAnnouncementList()}
+                                <li>
+                                        <a href="javascript:void(0)" className = { (this.props.menuitem === 'studygroup') ? 'navHere' : ''} onClick = {() => this.props.updateMenu('studygroup')}>Jul volume 19</a>
+                                    </li>
                                 </ol>
                             </li>
                         </ol>

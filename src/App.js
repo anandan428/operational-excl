@@ -8,8 +8,8 @@ import Details from './components/details';
 import Resource from './components/resources';
 
 const App = () => (
-  <div>
-    <header>
+  <div className="hd">
+    <header >
       <Header />
     </header>
     <main className="container">

@@ -16,13 +16,14 @@
 .navLinks li{
     font-size: 12px;
     text-transform: uppercase;
-    color: #6a737c;
+    color: #1c1c1c
+    /* width: 11rem; */
 }
 
 .navLinks li a{
-    display: flex;
+    /* display: flex; */
     padding: 3px 6px 3px 8px;
-    color: #1c1c1c;
+    color:  #6a737c;;
     line-height: 1.8;
     font-size: 13px;
     text-decoration: none;
@@ -65,4 +66,8 @@
     text-decoration: none;
     cursor: pointer;
     text-transform: none;
+}
+
+.lipadding{
+    padding-left: 18px !important;
 }

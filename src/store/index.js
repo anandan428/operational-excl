@@ -30,7 +30,7 @@ const composedEnhancers = compose(
     applyMiddleware(...middleWare),
     ...enhancers
 );
-
+// creating store
 const store = createStore(
     rootReducer,
     intialState,

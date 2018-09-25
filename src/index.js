@@ -8,14 +8,17 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { getAllCompetences, getAllPOC } from './modules/competence';
 import { getAllDetails } from './modules/details';
+import { getAllArticles } from './modules/article';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 store.dispatch(getAllCompetences());
 store.dispatch(getAllDetails());
 store.dispatch(getAllPOC());
+store.dispatch(getAllArticles());
 ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
-            <div>
+            <div >
                 <App />
             </div>
         </ConnectedRouter>
