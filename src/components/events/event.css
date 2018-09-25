@@ -1,0 +1,6 @@
+.chartContainer{
+    width: 100%;
+    background: #fafafb;
+    border: 1px solid lightgrey;
+    overflow: hidden;
+}
