@@ -30,9 +30,9 @@ class Details extends Component {
             return (
                 <p style={{ fontWeight: '600' }}>{this.props.doughData.groupName + '-' + this.props.doughData.data.name}</p>
             );
-        } else if (this.props.barData) {
+        } else if (this.props.barData.data) {
             return (
-                <p style={{ fontWeight: '600' }}>{this.props.barData}</p>
+                <p style={{ fontWeight: '600' }}>{this.props.barData.data}</p>
             )
         }
         return null;
@@ -58,21 +58,22 @@ class Details extends Component {
     }
 
     renderPOCDetails = (header) => {
-        if (this.props.barData) {
-            let intData = pocService.getDataForName(this.props.barData, this.props.pocList);
-            debugger;
-            if (intData.length > 0) {
-                let impData = pocService.implementedPOCList(intData[0].pocList)
-                if (intData[0].pocList.length > 0) {
-                    return (
-                        <div>
-                            {this.renderHeaderName()}
-                            <Table data={intData[0].pocList} headers={header} className={'defaultClass'} appliedClassName={false} />
-                            <p className = {'pocClass'}>POC -> Project</p>
-                            <Table data = {impData} headers = {header} className = {'defaultClass'} appliedClassName = {false} />
-                        </div>
-                    )
+        if (this.props.barData.hasOwnProperty('data')) {
+            if (this.props.barData.data) {
+                let intData = pocService.getDataForName(this.props.barData.data, (this.props.barData.chartType === 'POC' ? this.props.pocList : this.props.eventList));
+                if (intData.length > 0) {
+                    let impData = pocService.implementedPOCList(intData[0].pocList)
+                    if (intData[0].pocList.length > 0) {
+                        return (
+                            <div>
+                                {this.renderHeaderName()}
+                                <Table data={intData[0].pocList} headers={header} className={'defaultClass'} appliedClassName={false} />
+                                <p className={'pocClass'}>POC -> Project</p>
+                                <Table data={impData} headers={header} className={'defaultClass'} appliedClassName={false} />
+                            </div>
+                        )
 
+                    }
                 }
             }
         }
@@ -129,7 +130,8 @@ const mapStateToProps = ({ resourcecompetence, routingInfo, competence }) => ({
     doughData: routingInfo.doughData,
     barData: routingInfo.barData,
     requestedData: resourcecompetence.requestedData,
-    pocList: competence.poc
+    pocList: competence.poc,
+    eventList: competence.event
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

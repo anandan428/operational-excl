@@ -49,7 +49,7 @@
     -webkit-margin-before: 0.5rem;
     -webkit-margin-after: 0.5rem;
 }
-.fas  {
+.fas, .fab  {
     font-size:13px;
     margin-right: 0.5rem;
     color: #1c1c1c;

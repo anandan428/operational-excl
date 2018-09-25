@@ -18,6 +18,7 @@ class Home extends Component {
         id: ''
     }
 
+<<<<<<< HEAD
 
 
     renderArtContent = () => {
@@ -42,6 +43,68 @@ class Home extends Component {
         debugger;
         // this.setState({id: id});
         
+=======
+    barClick = (data) => {
+        this.props.updateRouterData(data.data.name, 'bar', 'POC');
+        this.props.changePage({
+            pathname: 'details'
+        });
+    }
+
+    renderStudyDashboard = () => {
+        if (this.props.resourcePerCompetence.length > 0) {
+            return (
+                this.props.resourcePerCompetence.map(gdata =>
+                    <DashCard chartType={'doughnut'} title={gdata.name} groupId={gdata.id} gdata={gdata.competence} graphClick={'dough'} onClick={(data) => this.doughClick(data)} />
+                )
+            )
+        } else {
+            return null;
+        }
+    }
+
+    renderPOCDashboard = () => {
+        let header = [{
+            title: 'Department',
+            field: 'name'
+        },
+        {
+            title: 'Total POC',
+            field: 'totalPOC'
+        },
+        {
+            title: 'POC -> Project',
+            field: 'implementedPOC'
+        }];
+        if (this.props.pocList.length > 0) {
+            let data = pocService.prepareDataForBar(this.props.pocList);
+            return (<DashCard chartType={'barchart'} title={'POC'} gdata={data} headers={header} onClick={(data) => this.barClick(data)} graphClick={'bar'} toBeClassName={'height400'} />);
+        }
+        return null;
+    }
+
+    renderWhat = () => {
+        // if(this.props.showWhat === 'studygroup'){
+        //     return(
+        //         <div>
+        //             {this.renderStudyDashboard()}
+        //         </div>
+        //     )
+        // } else if(this.props.showWhat === 'poc'){
+        //     return(
+        //         <div>
+        //             {this.renderPOCDashboard()}
+        //         </div>
+        //     )
+        // }
+        return(
+            <div>
+                {this.renderStudyDashboard()}
+                {this.renderPOCDashboard()}
+            </div>
+        )
+    }
+>>>>>>> dd8e19c9dff67ae6c41352ef108502e3b3e3b53e
 
     }
     renderArticleListHeadings = () => {
@@ -68,8 +131,12 @@ class Home extends Component {
     render() {
         return (
             <div style={{ padding: '10px', width: '100%' }}>
+<<<<<<< HEAD
                 {this.renderArticleListHeadings()}
                 {this.renderArtContent()}
+=======
+                {this.renderWhat()}
+>>>>>>> dd8e19c9dff67ae6c41352ef108502e3b3e3b53e
             </div>
         )
     }
@@ -91,19 +158,29 @@ class DashCard extends Component {
     }
 }
 
+<<<<<<< HEAD
 //store -> state this state u want in ur compomemt
 //mapStatetoProps, state into component Props
 const mapStateToProps = ({ resourcecompetence, competence, article }) => ({
     resourcePerCompetence: resourcecompetence.resourcePerCompetence,
     pocList: competence.poc,
     artList: article.art
+=======
+const mapStateToProps = ({ resourcecompetence, competence, menu }) => ({
+    resourcePerCompetence: resourcecompetence.resourcePerCompetence,
+    pocList: competence.poc,
+    showWhat: menu.currentID
+>>>>>>> dd8e19c9dff67ae6c41352ef108502e3b3e3b53e
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     changePage: (config) => push(config),
-    updateRouterData: (data, chart) => onRouteUpdate({
+    updateRouterData: (data, chart, chartType) => onRouteUpdate({
         type: chart === 'dough' ? ROUTE_UPDATE_DOUGH : ROUTE_UPDATE_BAR,
-        payload: data
+        payload: {
+            data: data,
+            chartType: chartType
+        }
     })
 }, dispatch);
 

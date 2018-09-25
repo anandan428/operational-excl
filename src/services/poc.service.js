@@ -39,6 +39,7 @@ class pocService {
             list.set(dataRow.name, Object.assign({}, row));
         }
         return list;
+
     }
 
     static implementedPOCList(list) {
